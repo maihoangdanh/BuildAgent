@@ -75,34 +75,88 @@ Phase 5: Tích hợp & Điều phối
 Phase 6: Xác thực & Kiểm thử
 ```
 
-## Cài đặt
+## Cài đặt & Sử dụng
 
-### Bước 1 — Clone repo
+> **Chỉ cài một lần.** Sau đó dùng được trong mọi project khác — không cần quay lại thư mục này.
 
+---
+
+### 🪟 Windows (PowerShell)
+
+**Bước 1 — Clone repo về máy**
+```powershell
+git clone https://github.com/maihoangdanh/BuildAgent.git
+cd BuildAgent
+```
+
+**Bước 2 — Cài skill vào Claude Code**
+```powershell
+Copy-Item -Recurse skills\harness "$env:USERPROFILE\.claude\skills\harness"
+```
+
+**Bước 3 — Bật Agent Teams (vĩnh viễn)**
+```powershell
+[System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS", "1", "User")
+```
+> Sau bước này cần **mở lại PowerShell** để biến môi trường có hiệu lực.
+
+**Bước 4 — Dùng ở bất kỳ project nào**
+```powershell
+# Ví dụ: mở Claude Code trong project của bạn
+cd D:\Projects\TenProjectCuaBan
+claude
+```
+Rồi gõ trong Claude Code:
+```
+Xây harness cho dự án này
+```
+
+---
+
+### 🍎 macOS / 🐧 Linux
+
+**Bước 1 — Clone repo về máy**
 ```bash
 git clone https://github.com/maihoangdanh/BuildAgent.git
 cd BuildAgent
 ```
 
-### Bước 2 — Cài Harness skill
-
-**macOS / Linux:**
+**Bước 2 — Cài skill vào Claude Code**
 ```bash
 cp -r skills/harness ~/.claude/skills/harness
 ```
 
-**Windows (PowerShell):**
-```powershell
-Copy-Item -Recurse skills\harness "$env:USERPROFILE\.claude\skills\harness"
-```
-
-### Bước 3 — Bật Agent Teams
-
+**Bước 3 — Bật Agent Teams (vĩnh viễn)**
 ```bash
-export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+echo 'export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1' >> ~/.zshrc
+source ~/.zshrc
+```
+> Nếu dùng bash thay zsh: thay `~/.zshrc` bằng `~/.bashrc`
+
+**Bước 4 — Dùng ở bất kỳ project nào**
+```bash
+# Ví dụ: mở Claude Code trong project của bạn
+cd ~/Projects/TenProjectCuaBan
+claude
+```
+Rồi gõ trong Claude Code:
+```
+Xây harness cho dự án này
 ```
 
-> Hướng dẫn đầy đủ (Windows, plugin link, gỡ cài đặt): [`docs/quickstart.md`](docs/quickstart.md)
+---
+
+### Kết quả sau khi chạy
+
+Harness phân tích codebase của project và tự sinh ra:
+```
+project-của-bạn/
+└── .claude/
+    ├── agents/      ← Các agent chuyên biệt cho domain của bạn
+    └── skills/      ← Skill hướng dẫn từng agent làm việc
+```
+
+Từ lần sau trong project đó, Claude Code sẽ tự dùng đội agent này mỗi khi bạn làm việc.
 
 ## Cấu trúc Plugin
 
