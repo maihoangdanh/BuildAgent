@@ -77,32 +77,25 @@ Phase 6: Xác thực & Kiểm thử
 
 ## Cài đặt & Sử dụng
 
-> **Chỉ cài một lần.** Sau đó dùng được trong mọi project khác — không cần quay lại thư mục này.
+> **Chỉ cài một lần.** Sau đó dùng được trong mọi project — không cần clone về máy, không cần copy tay.
 
 ---
 
 ### 🪟 Windows (PowerShell)
 
-**Bước 1 — Clone repo về máy**
+**Bước 1 — Cài skill vào Claude Code**
 ```powershell
-git clone https://github.com/maihoangdanh/BuildAgent.git
-cd BuildAgent
+git clone https://github.com/maihoangdanh/BuildAgent.git "$env:USERPROFILE\.claude\skills\harness" --depth=1
 ```
 
-**Bước 2 — Cài skill vào Claude Code**
-```powershell
-Copy-Item -Recurse skills\harness "$env:USERPROFILE\.claude\skills\harness"
-```
-
-**Bước 3 — Bật Agent Teams (vĩnh viễn)**
+**Bước 2 — Bật Agent Teams (vĩnh viễn)**
 ```powershell
 [System.Environment]::SetEnvironmentVariable("CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS", "1", "User")
 ```
 > Sau bước này cần **mở lại PowerShell** để biến môi trường có hiệu lực.
 
-**Bước 4 — Dùng ở bất kỳ project nào**
+**Bước 3 — Dùng ở bất kỳ project nào**
 ```powershell
-# Ví dụ: mở Claude Code trong project của bạn
 cd D:\Projects\TenProjectCuaBan
 claude
 ```
@@ -115,27 +108,19 @@ Xây harness cho dự án này
 
 ### 🍎 macOS / 🐧 Linux
 
-**Bước 1 — Clone repo về máy**
+**Bước 1 — Cài skill vào Claude Code**
 ```bash
-git clone https://github.com/maihoangdanh/BuildAgent.git
-cd BuildAgent
+git clone https://github.com/maihoangdanh/BuildAgent.git ~/.claude/skills/harness --depth=1
 ```
 
-**Bước 2 — Cài skill vào Claude Code**
+**Bước 2 — Bật Agent Teams (vĩnh viễn)**
 ```bash
-cp -r skills/harness ~/.claude/skills/harness
-```
-
-**Bước 3 — Bật Agent Teams (vĩnh viễn)**
-```bash
-echo 'export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1' >> ~/.zshrc
-source ~/.zshrc
+echo 'export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1' >> ~/.zshrc && source ~/.zshrc
 ```
 > Nếu dùng bash thay zsh: thay `~/.zshrc` bằng `~/.bashrc`
 
-**Bước 4 — Dùng ở bất kỳ project nào**
+**Bước 3 — Dùng ở bất kỳ project nào**
 ```bash
-# Ví dụ: mở Claude Code trong project của bạn
 cd ~/Projects/TenProjectCuaBan
 claude
 ```
