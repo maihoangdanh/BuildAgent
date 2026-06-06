@@ -77,7 +77,14 @@ Phase 6: Xác thực & Kiểm thử
 
 ## Cài đặt
 
-### Cài làm Global Skill (Khuyến nghị)
+### Bước 1 — Clone repo
+
+```bash
+git clone https://github.com/maihoangdanh/BuildAgent.git
+cd BuildAgent
+```
+
+### Bước 2 — Cài Harness skill
 
 **macOS / Linux:**
 ```bash
@@ -89,20 +96,13 @@ cp -r skills/harness ~/.claude/skills/harness
 Copy-Item -Recurse skills\harness "$env:USERPROFILE\.claude\skills\harness"
 ```
 
-### Link plugin local (để phát triển)
-
-```bash
-# Chạy từ thư mục repo này
-claude plugin link .
-```
-
-### Bật Agent Teams
+### Bước 3 — Bật Agent Teams
 
 ```bash
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ```
 
-> Xem hướng dẫn chi tiết và cài trên Windows tại [`docs/quickstart.md`](docs/quickstart.md)
+> Hướng dẫn đầy đủ (Windows, plugin link, gỡ cài đặt): [`docs/quickstart.md`](docs/quickstart.md)
 
 ## Cấu trúc Plugin
 

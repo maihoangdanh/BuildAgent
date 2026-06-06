@@ -1,19 +1,25 @@
-# Quickstart — Cài Harness từ máy local
+# Quickstart — Cài BuildAgent (Harness) từ GitHub
 
 > **Harness là gì?** Một meta-skill cho Claude Code. Cài một lần, dùng mãi mãi. Ở bất kỳ project nào, chỉ cần nói **"xây harness cho dự án này"** — Harness phân tích domain của bạn và tự sinh ra đội agent chuyên biệt + skill tương ứng ngay trong project đó.
 
 ---
 
-## Yêu cầu trước
+## Bước 1 — Clone repo về máy
 
-- Claude Code `v2.x` trở lên (`claude --version`)
-- Đã clone repo này về máy (bạn đang đọc file này nghĩa là đã xong bước này)
+```bash
+git clone https://github.com/maihoangdanh/BuildAgent.git
+cd BuildAgent
+```
 
 ---
 
-## Cách 1 — Cài làm Global Skill (Khuyến nghị)
+## Bước 2 — Cài Harness skill
 
-Copy skill vào thư mục global của Claude Code. Sau đó dùng được trong **mọi project**.
+Chọn một trong hai cách:
+
+### Cách A — Global Skill (Khuyến nghị)
+
+Cài vào thư mục global, dùng được trong **mọi project**.
 
 **macOS / Linux:**
 ```bash
@@ -25,38 +31,35 @@ cp -r skills/harness ~/.claude/skills/harness
 Copy-Item -Recurse skills\harness "$env:USERPROFILE\.claude\skills\harness"
 ```
 
-Xong. Không cần làm gì thêm.
-
----
-
-## Cách 2 — Link plugin local
-
-Đăng ký repo này như một plugin cục bộ. Thay đổi trong repo sẽ được phản ánh ngay.
+### Cách B — Plugin link (để phát triển / chỉnh sửa)
 
 ```bash
-# Chạy từ thư mục repo này
+# Chạy từ thư mục BuildAgent
 claude plugin link .
 ```
 
-Kiểm tra:
+Kiểm tra đã cài chưa:
 ```bash
 claude plugin list | grep harness
 ```
 
 ---
 
-## Bật Agent Teams
+## Bước 3 — Bật Agent Teams
 
-Harness cần tính năng Agent Teams của Claude Code. Đặt biến môi trường:
+Harness cần tính năng Agent Teams của Claude Code.
 
 **macOS / Linux:**
 ```bash
 export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
 ```
 
-Để lưu vĩnh viễn, thêm dòng trên vào `~/.zshrc` hoặc `~/.bashrc`.
+Lưu vĩnh viễn — thêm vào `~/.zshrc` hoặc `~/.bashrc`:
+```bash
+echo 'export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1' >> ~/.zshrc
+```
 
-**Windows (PowerShell — chỉ cho phiên hiện tại):**
+**Windows (PowerShell — phiên hiện tại):**
 ```powershell
 $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
 ```
@@ -68,42 +71,45 @@ $env:CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
 
 ---
 
-## Kiểm thử
+## Bước 4 — Dùng thử
 
-Mở Claude Code ở **bất kỳ project nào của bạn** và thử:
+Mở Claude Code tại **bất kỳ project nào của bạn** và gõ:
 
 ```
 Xây harness cho dự án này
 ```
 
-Hoặc cụ thể hơn:
+Hoặc mô tả cụ thể hơn:
 
 ```
-Xây harness cho dự án này — đây là backend API Node.js xử lý thanh toán
+Xây harness cho dự án này — backend Node.js xử lý thanh toán
 ```
 
 ```
-Xây harness cho dự án này — frontend React e-commerce
+Xây harness cho dự án này — frontend React e-commerce bán hàng
 ```
 
-**Kết quả mong đợi:** Claude phân tích codebase, chọn mẫu kiến trúc phù hợp và sinh ra các file trong:
-- `.claude/agents/` — định nghĩa từng agent chuyên biệt
-- `.claude/skills/` — skill hướng dẫn agent làm việc
+**Kết quả:** Claude phân tích codebase, chọn mẫu kiến trúc phù hợp và sinh ra:
+- `.claude/agents/` — file định nghĩa từng agent chuyên biệt
+- `.claude/skills/` — skill hướng dẫn cách agent làm việc
 
 ---
 
 ## Gỡ cài đặt
 
-**Nếu dùng Cách 1 (global skill):**
+**Nếu dùng Cách A (global skill):**
+
 ```bash
 # macOS / Linux
 rm -rf ~/.claude/skills/harness
+```
 
+```powershell
 # Windows
 Remove-Item -Recurse "$env:USERPROFILE\.claude\skills\harness"
 ```
 
-**Nếu dùng Cách 2 (plugin link):**
+**Nếu dùng Cách B (plugin link):**
 ```bash
 claude plugin unlink harness
 ```
