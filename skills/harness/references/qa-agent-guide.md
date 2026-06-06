@@ -1,228 +1,228 @@
-# QA 에이전트 설계 가이드
+# Hướng dẫn thiết kế QA Agent
 
-빌드 하네스에 QA 에이전트를 포함할 때 참고하는 가이드. 실제 프로젝트(SatangSlide)에서 발견된 버그 패턴과 그 근본 원인 분석을 바탕으로, QA가 놓치기 쉬운 결함을 체계적으로 잡는 검증 방법론을 제공한다.
-
----
-
-## 목차
-
-1. QA 에이전트가 놓치는 결함의 패턴
-2. 통합 정합성 검증 (Integration Coherence Verification)
-3. QA 에이전트 설계 원칙
-4. 검증 체크리스트 템플릿
-5. QA 에이전트 정의 템플릿
+Hướng dẫn tham khảo khi bao gồm QA agent trong build harness. Cung cấp phương pháp xác thực có hệ thống để bắt các lỗi dễ bị QA bỏ qua, dựa trên phân tích nguyên nhân gốc rễ từ các mẫu bug được phát hiện trong dự án thực tế (SatangSlide).
 
 ---
 
-## 1. QA 에이전트가 놓치는 결함의 패턴
+## Mục lục
 
-### 1-1. 경계면 불일치 (Boundary Mismatch)
-
-가장 빈번한 결함. 두 컴포넌트가 각각 "올바르게" 구현되어 있지만, 연결 지점에서 계약이 어긋남.
-
-| 경계면 | 불일치 예시 | 놓치는 이유 |
-|--------|-----------|-----------|
-| API 응답 → 프론트 훅 | API가 `{ projects: [...] }` 반환, 훅이 `SlideProject[]` 기대 | 각각 개별 검증하면 정상, 교차 비교 안 함 |
-| API 응답 필드명 → 타입 정의 | API가 `thumbnailUrl`(camelCase), 타입이 `thumbnail_url`(snake_case) | TypeScript 제네릭으로 캐스팅하면 컴파일러가 못 잡음 |
-| 파일 경로 → 링크 href | 페이지가 `/dashboard/create`에 있는데 링크가 `/create`로 지정 | 파일 구조와 href를 교차 비교하지 않음 |
-| 상태 전이 맵 → 실제 status 업데이트 | 맵에 `generating_template → template_approved` 정의, 코드에서 전환 누락 | 맵 존재 확인만 하고, 모든 업데이트 코드를 추적하지 않음 |
-| API 엔드포인트 → 프론트 훅 | API 존재하지만 대응 훅 없음 (호출 안 됨) | API 목록과 훅 목록을 1:1 매핑하지 않음 |
-| 즉시 응답 → 비동기 결과 | API가 즉시 `{ status }` 반환, 프론트가 `data.failedIndices` 접근 | 동기/비동기 응답 구분 없이 타입만 확인 |
-
-### 1-2. 왜 정적 코드 리뷰로 못 잡나
-
-- **TypeScript 제네릭의 한계**: `fetchJson<SlideProject[]>()` — 런타임 응답이 `{ projects: [...] }`여도 컴파일 통과
-- **`npm run build` 통과 ≠ 정상 동작**: 타입 캐스팅, `any`, 제네릭이 사용되면 빌드는 성공하지만 런타임에 실패
-- **존재 검증 vs 연결 검증의 차이**: "API가 있는가?"와 "API의 응답이 호출측의 기대와 일치하는가?"는 전혀 다른 검증
+1. Mẫu lỗi mà QA agent bỏ qua
+2. Xác thực tích hợp (Integration Coherence Verification)
+3. Nguyên tắc thiết kế QA agent
+4. Template checklist xác thực
+5. Template định nghĩa QA agent
 
 ---
 
-## 2. 통합 정합성 검증 (Integration Coherence Verification)
+## 1. Mẫu lỗi mà QA agent bỏ qua
 
-QA 에이전트에 반드시 포함해야 하는 **교차 비교 검증** 영역.
+### 1-1. Không nhất quán ranh giới (Boundary Mismatch)
 
-### 2-1. API 응답 ↔ 프론트 훅 타입 교차 검증
+Loại lỗi phổ biến nhất. Hai component được triển khai "đúng" riêng lẻ nhưng hợp đồng bị sai tại điểm kết nối.
 
-**방법**: 각 API route의 `NextResponse.json()` 호출부와 대응 훅의 `fetchJson<T>` 타입 파라미터를 비교.
+| Ranh giới | Ví dụ không nhất quán | Lý do bỏ qua |
+|----------|---------------------|------------|
+| Phản hồi API → Hook frontend | API trả về `{ projects: [...] }`, hook kỳ vọng `SlideProject[]` | Xác thực riêng lẻ thì bình thường, không so sánh chéo |
+| Tên trường phản hồi API → Định nghĩa type | API dùng `thumbnailUrl` (camelCase), type dùng `thumbnail_url` (snake_case) | Compiler không bắt được khi cast bằng TypeScript generic |
+| Đường dẫn file → Link href | Trang ở `/dashboard/create` nhưng link trỏ `/create` | Không so sánh chéo cấu trúc file và href |
+| Bản đồ chuyển tiếp trạng thái → Cập nhật status thực tế | Bản đồ định nghĩa `generating_template → template_approved`, code không có chuyển tiếp | Chỉ kiểm tra sự tồn tại của bản đồ, không truy vết tất cả code cập nhật |
+| Endpoint API → Hook frontend | API tồn tại nhưng không có hook tương ứng (không được gọi) | Không ánh xạ 1:1 danh sách API và danh sách hook |
+| Phản hồi ngay lập tức → Kết quả bất đồng bộ | API trả về ngay `{ status }`, frontend truy cập `data.failedIndices` | Không phân biệt phản hồi đồng bộ/bất đồng bộ, chỉ kiểm tra type |
 
-```
-검증 단계:
-1. API route에서 NextResponse.json()에 전달하는 객체의 shape 추출
-2. 대응 훅에서 fetchJson<T>의 T 타입 확인
-3. shape과 T가 일치하는지 비교
-4. 래핑 여부 확인 (API가 { data: [...] }를 반환하면 훅이 .data를 꺼내는지)
-```
+### 1-2. Tại sao code review tĩnh không bắt được
 
-**특히 주의할 패턴:**
-- 페이지네이션 API: `{ items: [], total, page }` vs 프론트가 배열 기대
-- snake_case DB 필드 → camelCase API 응답 → 프론트 타입 정의 간 불일치
-- 즉시 응답 (202 Accepted) vs 최종 결과의 shape 차이
+- **Giới hạn của TypeScript generic**: `fetchJson<SlideProject[]>()` — ngay cả khi runtime response là `{ projects: [...] }` vẫn compile pass
+- **`npm run build` pass ≠ hoạt động bình thường**: Type casting, `any`, generic thì build thành công nhưng thất bại lúc runtime
+- **Khác nhau giữa xác thực sự tồn tại và xác thực kết nối**: "API có tồn tại không?" và "Phản hồi API có khớp với kỳ vọng của bên gọi không?" là hai xác thực hoàn toàn khác nhau
 
-### 2-2. 파일 경로 ↔ 링크/라우터 경로 매핑
+---
 
-**방법**: `src/app/` 하위 page 파일의 URL 경로를 추출하고, 코드 내 모든 `href`, `router.push()`, `redirect()` 값과 대조.
+## 2. Xác thực tích hợp (Integration Coherence Verification)
 
-```
-검증 단계:
-1. src/app/ 하위 page.tsx 파일 경로에서 URL 패턴 추출
-   - (group) → URL에서 제거
-   - [param] → 동적 세그먼트
-2. 코드 내 모든 href=, router.push(, redirect( 값 수집
-3. 각 링크가 실제 존재하는 page 경로와 매칭되는지 확인
-4. route group 내부 페이지의 URL 접두사 주의 (예: dashboard/ 하위)
-```
+Các lĩnh vực **xác thực so sánh chéo** phải bao gồm trong QA agent.
 
-### 2-3. 상태 전이 완전성 추적
+### 2-1. Xác thực chéo phản hồi API ↔ Type hook frontend
 
-**방법**: 코드에서 모든 `status:` 업데이트를 추출하여 상태 전이 맵과 대조.
+**Phương pháp**: So sánh call site `NextResponse.json()` của từng API route với tham số type `fetchJson<T>` của hook tương ứng.
 
 ```
-검증 단계:
-1. 상태 전이 맵(STATE_TRANSITIONS)에서 허용된 전이 목록 추출
-2. 모든 API route에서 .update({ status: "..." }) 패턴 검색
-3. 각 전이가 맵에 정의되어 있는지 확인
-4. 맵에 정의된 전이 중 코드에서 실행되지 않는 것 식별 (죽은 전이)
-5. 특히: 중간 상태(예: generating_template)에서 최종 상태(template_approved)로의 전환이 누락되지 않았는지
+Các bước xác thực:
+1. Trích xuất shape của object truyền vào NextResponse.json() trong API route
+2. Kiểm tra type T của fetchJson<T> trong hook tương ứng
+3. So sánh shape và T có khớp không
+4. Kiểm tra có wrapping không (nếu API trả về { data: [...] } thì hook có lấy .data ra không)
 ```
 
-### 2-4. API 엔드포인트 ↔ 프론트 훅 1:1 매핑
+**Các mẫu cần đặc biệt chú ý:**
+- Pagination API: `{ items: [], total, page }` vs frontend kỳ vọng mảng
+- Không nhất quán giữa trường DB snake_case → phản hồi API camelCase → định nghĩa type frontend
+- Khác biệt shape giữa phản hồi ngay lập tức (202 Accepted) và kết quả cuối cùng
 
-**방법**: 모든 API route와 프론트 훅을 나열하여 짝이 맞는지 확인.
+### 2-2. Ánh xạ đường dẫn file ↔ Đường dẫn link/router
+
+**Phương pháp**: Trích xuất URL path của page file trong `src/app/` và đối chiếu với tất cả giá trị `href`, `router.push()`, `redirect()` trong code.
 
 ```
-검증 단계:
-1. src/app/api/ 하위 route.ts에서 HTTP 메서드별 엔드포인트 목록 추출
-2. src/hooks/ 하위 use*.ts에서 fetch 호출 URL 목록 추출
-3. API 엔드포인트 중 훅에서 호출하지 않는 것 식별 → "사용 안 됨" 플래그
-4. "사용 안 됨"이 의도적인지 (관리 API 등) 아닌지 (호출 누락) 판단
+Các bước xác thực:
+1. Trích xuất pattern URL từ đường dẫn page.tsx trong src/app/
+   - (group) → Xóa khỏi URL
+   - [param] → Dynamic segment
+2. Thu thập tất cả giá trị href=, router.push(, redirect( trong code
+3. Xác nhận mỗi link có khớp với đường dẫn page thực tế không
+4. Chú ý tiền tố URL của trang trong route group (v.d.: trong dashboard/)
+```
+
+### 2-3. Truy vết tính đầy đủ của chuyển tiếp trạng thái
+
+**Phương pháp**: Trích xuất tất cả cập nhật `status:` trong code và đối chiếu với bản đồ chuyển tiếp trạng thái.
+
+```
+Các bước xác thực:
+1. Trích xuất danh sách chuyển tiếp được phép từ bản đồ chuyển tiếp (STATE_TRANSITIONS)
+2. Tìm kiếm pattern .update({ status: "..." }) trong tất cả API route
+3. Xác nhận mỗi chuyển tiếp có được định nghĩa trong bản đồ không
+4. Xác định chuyển tiếp được định nghĩa trong bản đồ nhưng không được thực thi trong code (chuyển tiếp chết)
+5. Đặc biệt: Kiểm tra chuyển tiếp từ trạng thái trung gian (v.d.: generating_template) sang trạng thái cuối (template_approved) không bị thiếu
+```
+
+### 2-4. Ánh xạ 1:1 Endpoint API ↔ Hook frontend
+
+**Phương pháp**: Liệt kê tất cả API route và frontend hook để kiểm tra có khớp không.
+
+```
+Các bước xác thực:
+1. Trích xuất danh sách endpoint theo HTTP method từ route.ts trong src/app/api/
+2. Trích xuất danh sách URL fetch call từ use*.ts trong src/hooks/
+3. Xác định endpoint API không được gọi trong hook → Đánh dấu "Chưa dùng"
+4. Phán định "Chưa dùng" là có chủ ý (quản trị API, v.v.) hay không (thiếu lời gọi)
 ```
 
 ---
 
-## 3. QA 에이전트 설계 원칙
+## 3. Nguyên tắc thiết kế QA agent
 
-### 3-1. Explore 타입이 아닌 general-purpose 타입을 사용하라
+### 3-1. Dùng loại general-purpose không phải Explore
 
-QA 에이전트가 `Explore` 타입이면 읽기만 가능하다. 하지만 효과적인 QA는:
-- Grep으로 패턴 검색 (모든 `NextResponse.json()` 추출)
-- 스크립트 실행으로 자동 대조 (API shape vs 훅 타입)
-- 필요 시 수정까지 가능
+Nếu QA agent là loại `Explore`, chỉ có thể đọc. Nhưng QA hiệu quả cần:
+- Tìm kiếm pattern bằng Grep (trích xuất tất cả `NextResponse.json()`)
+- Đối chiếu tự động bằng script (API shape vs hook type)
+- Có thể sửa đổi khi cần
 
-**권장**: `general-purpose` 타입으로 설정하되, 에이전트 정의에서 "검증 → 리포트 → 수정 요청" 프로토콜을 명시.
+**Khuyến nghị**: Đặt loại `general-purpose`, nhưng ghi rõ giao thức "xác thực → báo cáo → yêu cầu sửa đổi" trong định nghĩa agent.
 
-### 3-2. 체크리스트는 "존재 확인"보다 "교차 비교"를 우선하라
+### 3-2. Checklist ưu tiên "So sánh chéo" hơn "Kiểm tra sự tồn tại"
 
-| 약한 체크리스트 | 강한 체크리스트 |
-|---------------|---------------|
-| API 엔드포인트가 존재하는가? | API 엔드포인트의 응답 shape과 대응 훅의 타입이 일치하는가? |
-| 상태 전이 맵이 정의되어 있는가? | 모든 status 업데이트 코드가 맵의 전이와 일치하는가? |
-| 페이지 파일이 존재하는가? | 코드 내 모든 링크가 실제 존재하는 페이지를 가리키는가? |
-| TypeScript strict mode인가? | 제네릭 캐스팅으로 우회된 타입 안전성이 없는가? |
+| Checklist yếu | Checklist mạnh |
+|--------------|---------------|
+| Endpoint API có tồn tại không? | Shape phản hồi của endpoint API có khớp với type của hook tương ứng không? |
+| Bản đồ chuyển tiếp trạng thái có được định nghĩa không? | Tất cả code cập nhật status có khớp với chuyển tiếp trong bản đồ không? |
+| File page có tồn tại không? | Tất cả link trong code có trỏ đến trang thực sự tồn tại không? |
+| TypeScript strict mode không? | Có type safety nào bị bypass bằng generic cast không? |
 
-### 3-3. "양쪽을 동시에 읽어라" 원칙
+### 3-3. Nguyên tắc "Đọc cả hai bên đồng thời"
 
-QA가 경계면 버그를 잡으려면, 한쪽만 읽어선 안 된다. 반드시:
-- API route **와** 대응 훅을 **같이** 읽고
-- 상태 전이 맵 **와** 실제 업데이트 코드를 **같이** 읽고
-- 파일 구조 **와** 링크 경로를 **같이** 읽어야 한다
+Để QA bắt được bug ranh giới, không thể chỉ đọc một bên. Phải:
+- Đọc **đồng thời** API route **và** hook tương ứng
+- Đọc **đồng thời** bản đồ chuyển tiếp trạng thái **và** code cập nhật thực tế
+- Đọc **đồng thời** cấu trúc file **và** đường dẫn link
 
-에이전트 정의에 이 원칙을 명시적으로 기재하라.
+Ghi rõ nguyên tắc này trong định nghĩa agent.
 
-### 3-4. QA는 빌드 후가 아니라, 각 모듈 완성 직후에 실행하라
+### 3-4. Chạy QA ngay sau khi mỗi module hoàn thành, không phải sau build
 
-오케스트레이터에서 QA를 "Phase 4: 전체 완성 후"에만 배치하면:
-- 버그가 누적되어 수정 비용이 높아짐
-- 초기 경계면 불일치가 후속 모듈에 전파됨
+Khi chỉ đặt QA vào "Phase 4: Sau khi hoàn tất toàn bộ" trong orchestrator:
+- Bug tích lũy làm tăng chi phí sửa
+- Không nhất quán ranh giới ban đầu lan truyền sang module tiếp theo
 
-**권장 패턴**: 각 백엔드 API 완성 시 즉시 해당 API + 대응 훅의 교차 검증 수행 (incremental QA).
+**Mẫu khuyến nghị**: Khi mỗi API backend hoàn thành, ngay lập tức xác thực chéo API đó và hook tương ứng (incremental QA).
 
 ---
 
-## 4. 검증 체크리스트 템플릿
+## 4. Template checklist xác thực
 
-QA 에이전트 정의에 포함할 웹 애플리케이션용 통합 정합성 체크리스트.
+Checklist xác thực tích hợp cho ứng dụng web để bao gồm trong định nghĩa QA agent.
 
 ```markdown
-### 통합 정합성 검증 (웹 앱)
+### Xác thực tích hợp (Ứng dụng web)
 
-#### API ↔ 프론트엔드 연결
-- [ ] 모든 API route의 응답 shape과 대응 훅의 제네릭 타입이 일치
-- [ ] 래핑된 응답({ items: [...] })은 훅에서 unwrap하는지 확인
-- [ ] snake_case ↔ camelCase 변환이 일관되게 적용
-- [ ] 즉시 응답(202)과 최종 결과의 shape이 프론트에서 구분되는지 확인
-- [ ] 모든 API 엔드포인트에 대응하는 프론트 훅이 존재하고 실제로 호출됨
+#### Kết nối API ↔ Frontend
+- [ ] Shape phản hồi của tất cả API route và type generic của hook tương ứng khớp nhau
+- [ ] Phản hồi có wrapping ({ items: [...] }) được unwrap trong hook
+- [ ] Chuyển đổi snake_case ↔ camelCase được áp dụng nhất quán
+- [ ] Frontend phân biệt được shape của phản hồi ngay lập tức (202) và kết quả cuối cùng
+- [ ] Có hook tương ứng cho tất cả endpoint API và được gọi thực sự
 
-#### 라우팅 정합성
-- [ ] 코드 내 모든 href/router.push 값이 실제 page 파일 경로와 매칭
-- [ ] route group ((group))이 URL에서 제거되는 것을 고려한 경로 검증
-- [ ] 동적 세그먼트([id])가 올바른 파라미터로 채워지는지 확인
+#### Nhất quán routing
+- [ ] Tất cả giá trị href/router.push trong code khớp với đường dẫn file page thực tế
+- [ ] Xác thực đường dẫn có tính đến việc route group ((group)) bị xóa khỏi URL
+- [ ] Kiểm tra dynamic segment ([id]) được điền với tham số đúng
 
-#### 상태 머신 정합성
-- [ ] 정의된 모든 상태 전이가 코드에서 실행됨 (죽은 전이 없음)
-- [ ] 코드의 모든 status 업데이트가 전이 맵에 정의됨 (무단 전이 없음)
-- [ ] 중간 상태에서 최종 상태로의 전환이 누락되지 않음
-- [ ] 프론트에서 상태 기반 분기(if status === "X")의 X가 실제 도달 가능
+#### Nhất quán state machine
+- [ ] Tất cả chuyển tiếp trạng thái đã định nghĩa được thực thi trong code (không có chuyển tiếp chết)
+- [ ] Tất cả cập nhật status trong code được định nghĩa trong bản đồ chuyển tiếp (không có chuyển tiếp trái phép)
+- [ ] Chuyển tiếp từ trạng thái trung gian sang trạng thái cuối không bị thiếu
+- [ ] Phân nhánh dựa trên trạng thái trong frontend (if status === "X") với X thực sự có thể đạt tới
 
-#### 데이터 흐름 정합성
-- [ ] DB 스키마 필드명과 API 응답 필드명의 매핑이 일관됨
-- [ ] 프론트 타입 정의와 API 응답의 필드명이 일치
-- [ ] 옵셔널 필드에 대한 null/undefined 처리가 양쪽에서 일관됨
+#### Nhất quán luồng dữ liệu
+- [ ] Ánh xạ giữa tên cột DB schema và tên trường phản hồi API nhất quán
+- [ ] Tên trường trong định nghĩa type frontend và phản hồi API khớp nhau
+- [ ] Xử lý null/undefined cho trường optional nhất quán ở cả hai phía
 ```
 
 ---
 
-## 5. QA 에이전트 정의 템플릿
+## 5. Template định nghĩa QA agent
 
-빌드 하네스의 QA 에이전트에 포함할 핵심 섹션.
+Phần cốt lõi để bao gồm trong QA agent của build harness.
 
 ```markdown
 ---
 name: qa-inspector
-description: "QA 검증 전문가. 스펙 준수, 통합 정합성, 디자인 품질을 검증."
+description: "Chuyên gia QA. Xác thực tuân thủ spec, nhất quán tích hợp và chất lượng thiết kế."
 ---
 
 # QA Inspector
 
-## 핵심 역할
-스펙 대비 구현 품질과 **모듈 간 통합 정합성**을 검증한다.
+## Vai trò cốt lõi
+Xác thực chất lượng triển khai so với spec và **nhất quán tích hợp giữa các module**.
 
-## 검증 우선순위
+## Ưu tiên xác thực
 
-1. **통합 정합성** (가장 높음) — 경계면 불일치가 런타임 에러의 주요 원인
-2. **기능 스펙 준수** — API/상태머신/데이터모델
-3. **디자인 품질** — 색상/타이포/반응형
-4. **코드 품질** — 미사용 코드, 명명 규칙
+1. **Nhất quán tích hợp** (Cao nhất) — Không nhất quán ranh giới là nguyên nhân chính của lỗi runtime
+2. **Tuân thủ spec chức năng** — API/state machine/data model
+3. **Chất lượng thiết kế** — Màu sắc/typography/responsive
+4. **Chất lượng code** — Code không dùng, quy ước đặt tên
 
-## 검증 방법: "양쪽 동시 읽기"
+## Phương pháp xác thực: "Đọc cả hai bên đồng thời"
 
-경계면 검증은 반드시 **양쪽 코드를 동시에 열어** 비교한다:
+Xác thực ranh giới phải **mở đồng thời cả hai bên code** để so sánh:
 
-| 검증 대상 | 왼쪽 (생산자) | 오른쪽 (소비자) |
-|----------|-------------|---------------|
-| API 응답 shape | route.ts의 NextResponse.json() | hooks/의 fetchJson<T> |
-| 라우팅 | src/app/ page 파일 경로 | href, router.push 값 |
-| 상태 전이 | STATE_TRANSITIONS 맵 | .update({ status }) 코드 |
-| DB → API → UI | 테이블 컬럼명 | API 응답 필드 → 타입 정의 |
+| Mục xác thực | Bên trái (Producer) | Bên phải (Consumer) |
+|-------------|-------------------|-------------------|
+| Shape phản hồi API | NextResponse.json() trong route.ts | fetchJson<T> trong hooks/ |
+| Routing | Đường dẫn page file trong src/app/ | Giá trị href, router.push |
+| Chuyển tiếp trạng thái | Bản đồ STATE_TRANSITIONS | Code .update({ status }) |
+| DB → API → UI | Tên cột table | Trường phản hồi API → Định nghĩa type |
 
-## 팀 통신 프로토콜
+## Giao thức giao tiếp nhóm
 
-- 발견 즉시 해당 에이전트에게 구체적 수정 요청 (파일:라인 + 수정 방법)
-- 경계면 이슈는 양쪽 에이전트 **모두**에게 알림
-- 리더에게: 검증 리포트 (통과/실패/미검증 항목 구분)
+- Yêu cầu sửa đổi cụ thể ngay khi phát hiện đến agent đó (file:dòng + phương pháp sửa)
+- Vấn đề ranh giới thông báo cho **cả hai** agent ở hai phía
+- Báo cáo cho leader: Báo cáo xác thực (phân biệt mục pass/fail/chưa xác thực)
 ```
 
 ---
 
-## 실제 사례: SatangSlide에서 발견된 버그
+## Trường hợp thực tế: Bug phát hiện trong SatangSlide
 
-이 가이드의 모든 내용은 아래 실제 버그에서 추출한 교훈이다:
+Tất cả nội dung hướng dẫn này được rút ra từ các bug thực tế sau:
 
-| 버그 | 경계면 | 원인 |
-|------|--------|------|
-| `projects?.filter is not a function` | API→훅 | API가 `{projects:[]}` 반환, 훅이 배열 기대 |
-| 대시보드 모든 링크 404 | 파일경로→href | `/dashboard/` 접두사 누락 |
-| 테마 이미지 안 보임 | API→컴포넌트 | `thumbnailUrl` vs `thumbnail_url` |
-| 테마 선택 저장 안 됨 | API→훅 | select-theme API 존재, 훅 없음 |
-| 생성 페이지 영원히 대기 | 상태전이→코드 | `template_approved` 전이 코드 누락 |
-| `data.failedIndices` 크래시 | 즉시응답→프론트 | 백그라운드 결과를 즉시 응답에서 접근 |
-| 완료 후 슬라이드 보기 404 | 파일경로→href | `/projects/` → `/dashboard/projects/` |
+| Bug | Ranh giới | Nguyên nhân |
+|-----|---------|------------|
+| `projects?.filter is not a function` | API→hook | API trả về `{projects:[]}`, hook kỳ vọng mảng |
+| Tất cả link dashboard 404 | Đường dẫn file→href | Thiếu tiền tố `/dashboard/` |
+| Ảnh theme không hiển thị | API→component | `thumbnailUrl` vs `thumbnail_url` |
+| Chọn theme không lưu | API→hook | API select-theme tồn tại, không có hook |
+| Trang tạo chờ mãi | Chuyển tiếp trạng thái→code | Thiếu code chuyển tiếp `template_approved` |
+| `data.failedIndices` crash | Phản hồi ngay lập tức→frontend | Truy cập kết quả nền trong phản hồi ngay lập tức |
+| 404 sau khi hoàn thành | Đường dẫn file→href | `/projects/` → `/dashboard/projects/` |

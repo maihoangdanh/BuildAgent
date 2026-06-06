@@ -3,44 +3,44 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Version-1.2.0-brightgreen.svg" alt="Version">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg" alt="License"></a>
+  <img src="https://img.shields.io/badge/Phiên_bản-1.2.0-brightgreen.svg" alt="Version">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Giấy_phép-Apache_2.0-blue.svg" alt="License"></a>
   <img src="https://img.shields.io/badge/Claude_Code-Plugin-purple.svg" alt="Claude Code Plugin">
-  <img src="https://img.shields.io/badge/Patterns-6_Architectures-orange.svg" alt="6 Architecture Patterns">
-  <img src="https://img.shields.io/badge/Mode-Agent_Teams-green.svg" alt="Agent Teams">
+  <img src="https://img.shields.io/badge/Kiến_trúc-6_Mẫu-orange.svg" alt="6 Architecture Patterns">
+  <img src="https://img.shields.io/badge/Chế_độ-Nhóm_Agent-green.svg" alt="Agent Teams">
   <a href="https://github.com/revfactory/harness/stargazers"><img src="https://img.shields.io/github/stars/revfactory/harness?style=social" alt="GitHub Stars"></a>
 </p>
 
 <p align="center">
-  <a href="#category--where-harness-sits"><img src="https://img.shields.io/badge/Layer-L3%20Meta--Factory-orange" alt="Layer"></a>
-  <a href="#category--where-harness-sits"><img src="https://img.shields.io/badge/Sub--layer-Team--Architecture%20Factory-teal" alt="Sub-layer"></a>
-  <a href="#"><img src="https://img.shields.io/badge/README-EN%20%7C%20KO%20%7C%20JA-lightgrey" alt="i18n"></a>
+  <a href="#danh-mục--vị-trí-của-harness"><img src="https://img.shields.io/badge/Tầng-L3%20Meta--Factory-orange" alt="Layer"></a>
+  <a href="#danh-mục--vị-trí-của-harness"><img src="https://img.shields.io/badge/Phụ--tầng-Team--Architecture%20Factory-teal" alt="Sub-layer"></a>
+  <a href="#"><img src="https://img.shields.io/badge/README-Tiếng_Việt-lightgrey" alt="i18n"></a>
 </p>
 
-# Harness — The Team-Architecture Factory for Claude Code
+# Harness — Nhà Máy Kiến Trúc Nhóm Agent cho Claude Code
 
-**English** | [한국어](README_KO.md) | [日本語](README_JA.md)
+**Tiếng Việt**
 
-> **Harness is a team-architecture factory for Claude Code.** Say **"build a harness for this project"** (English) or **"하네스 구성해줘"** (한국어) or **"ハーネスを構成して"** (日本語), and the plugin turns your domain description into an agent team and the skills they use — picked from six pre-defined team-architecture patterns.
+> **Harness là nhà máy kiến trúc nhóm agent cho Claude Code.** Nói **"xây harness cho dự án này"** và plugin sẽ biến mô tả domain của bạn thành một nhóm agent cùng các skill tương ứng — được chọn từ sáu mẫu kiến trúc nhóm định sẵn.
 
-## Overview
+## Tổng quan
 
-Harness leverages Claude Code's agent team system to decompose complex tasks into coordinated teams of specialized agents. Say "build a harness for this project" and it automatically generates agent definitions (`.claude/agents/`) and skills (`.claude/skills/`) tailored to your domain.
+Harness tận dụng hệ thống nhóm agent của Claude Code để phân rã các tác vụ phức tạp thành các nhóm agent chuyên biệt phối hợp với nhau. Nói "xây harness cho dự án này" và nó tự động tạo ra định nghĩa agent (`.claude/agents/`) và skill (`.claude/skills/`) phù hợp với domain của bạn.
 
-## Category — Where Harness Sits
+## Danh mục — Vị trí của Harness
 
-Harness lives at the **L3 Meta-Factory** layer of the Claude Code ecosystem — the layer that generates other harnesses rather than being one. Inside L3, we pick a specific sub-layer: **Team-Architecture Factory**.
+Harness nằm ở tầng **L3 Meta-Factory** trong hệ sinh thái Claude Code — tầng tạo ra các harness khác thay vì là một harness thông thường. Trong L3, chúng ta chọn phụ-tầng cụ thể: **Nhà máy Kiến trúc Nhóm (Team-Architecture Factory)**.
 
-| Layer | What it does | Neighbors we coexist with |
-|-------|--------------|---------------------------|
-| **L3 — Meta-Factory / Team-Architecture Factory** (us) | Domain sentence → agent team + skills, via 6 pre-defined team patterns | — |
-| L3 — Meta-Factory / Runtime-Configuration Factory | Deterministic, repeatable runtime configurations | [coleam00/Archon](https://github.com/coleam00/Archon) |
-| L3 — Meta-Factory / Codex Runtime Port | Same concept, Codex runtime | [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) |
-| L2 — Cross-Harness Workflow | Standardize skills/rules/hooks across multiple harnesses | [affaan-m/ECC](https://github.com/affaan-m/everything-claude-code) |
+| Tầng | Chức năng | Dự án lân cận |
+|------|-----------|---------------|
+| **L3 — Meta-Factory / Team-Architecture Factory** (chúng ta) | Câu mô tả domain → nhóm agent + skill, qua 6 mẫu nhóm định sẵn | — |
+| L3 — Meta-Factory / Runtime-Configuration Factory | Cấu hình runtime xác định và lặp lại được | [coleam00/Archon](https://github.com/coleam00/Archon) |
+| L3 — Meta-Factory / Codex Runtime Port | Cùng khái niệm, runtime Codex | [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) |
+| L2 — Cross-Harness Workflow | Chuẩn hóa skill/rule/hook trên nhiều harness | [affaan-m/ECC](https://github.com/affaan-m/everything-claude-code) |
 
-> Archon generates deterministic runtime configurations. Harness generates team architectures (pipeline, fan-out/fan-in, expert pool, producer-reviewer, supervisor, hierarchical delegation) plus the skills agents use. Different sub-layers of the same L3. Pick Archon for runtime determinism, Harness for team architecture, or combine them.
+> Archon tạo cấu hình runtime xác định. Harness tạo kiến trúc nhóm agent (pipeline, fan-out/fan-in, expert pool, producer-reviewer, supervisor, hierarchical delegation) cùng các skill mà agent sử dụng. Hai phụ-tầng khác nhau trong cùng L3. Chọn Archon cho tính xác định runtime, Harness cho kiến trúc nhóm, hoặc kết hợp cả hai.
 
-## Star History
+## Lịch sử Star
 
 <a href="https://www.star-history.com/?repos=revfactory%2Fharness&type=date&legend=top-left">
  <picture>
@@ -51,52 +51,60 @@ Harness lives at the **L3 Meta-Factory** layer of the Claude Code ecosystem — 
 </a>
 
 
-## Key Features
+## Tính năng chính
 
-- **Agent Team Design** — 6 architectural patterns: Pipeline, Fan-out/Fan-in, Expert Pool, Producer-Reviewer, Supervisor, and Hierarchical Delegation
-- **Skill Generation** — Auto-generates skills with Progressive Disclosure for efficient context management
-- **Orchestration** — Inter-agent data passing, error handling, and team coordination protocols
-- **Validation** — Trigger verification, dry-run testing, and with-skill vs without-skill comparison tests
+- **Thiết kế Nhóm Agent** — 6 mẫu kiến trúc: Pipeline, Fan-out/Fan-in, Expert Pool, Producer-Reviewer, Supervisor và Hierarchical Delegation
+- **Tạo Skill** — Tự động tạo skill với Progressive Disclosure để quản lý context hiệu quả
+- **Điều phối** — Truyền dữ liệu liên agent, xử lý lỗi và giao thức phối hợp nhóm
+- **Xác thực** — Kiểm tra trigger, dry-run testing và so sánh with-skill vs without-skill
 
 
-## Workflow
+## Quy trình
 
 ```
-Phase 1: Domain Analysis
+Phase 1: Phân tích Domain
     ↓
-Phase 2: Team Architecture Design (Agent Teams vs Subagents)
+Phase 2: Thiết kế Kiến trúc Nhóm (Agent Teams vs Subagents)
     ↓
-Phase 3: Agent Definition Generation (.claude/agents/)
+Phase 3: Tạo Định nghĩa Agent (.claude/agents/)
     ↓
-Phase 4: Skill Generation (.claude/skills/)
+Phase 4: Tạo Skill (.claude/skills/)
     ↓
-Phase 5: Integration & Orchestration
+Phase 5: Tích hợp & Điều phối
     ↓
-Phase 6: Validation & Testing
+Phase 6: Xác thực & Kiểm thử
 ```
 
-## Installation
+## Cài đặt
 
-### Via Marketplace
+### Cài làm Global Skill (Khuyến nghị)
 
-#### Add the marketplace
-```shell
-/plugin marketplace add revfactory/harness
-```
-
-#### Install the plugin
-```shell
-/plugin install harness@harness-marketplace
-```
-
-### Direct Installation as Global Skill
-
-```shell
-# Copy the skills directory to ~/.claude/skills/harness/
+**macOS / Linux:**
+```bash
 cp -r skills/harness ~/.claude/skills/harness
 ```
 
-## Plugin Structure
+**Windows (PowerShell):**
+```powershell
+Copy-Item -Recurse skills\harness "$env:USERPROFILE\.claude\skills\harness"
+```
+
+### Link plugin local (để phát triển)
+
+```bash
+# Chạy từ thư mục repo này
+claude plugin link .
+```
+
+### Bật Agent Teams
+
+```bash
+export CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1
+```
+
+> Xem hướng dẫn chi tiết và cài trên Windows tại [`docs/quickstart.md`](docs/quickstart.md)
+
+## Cấu trúc Plugin
 
 ```
 harness/
@@ -104,61 +112,61 @@ harness/
 │   └── plugin.json                 # Plugin manifest
 ├── skills/
 │   └── harness/
-│       ├── SKILL.md                # Main skill definition (6-Phase workflow)
+│       ├── SKILL.md                # Định nghĩa skill chính (quy trình 6 phase)
 │       └── references/
-│           ├── agent-design-patterns.md   # 6 architectural patterns
-│           ├── orchestrator-template.md   # Team/subagent orchestrator templates
-│           ├── team-examples.md           # 5 real-world team configurations
-│           ├── skill-writing-guide.md     # Skill authoring guide
-│           ├── skill-testing-guide.md     # Testing & evaluation methodology
-│           └── qa-agent-guide.md          # QA agent integration guide
+│           ├── agent-design-patterns.md   # 6 mẫu kiến trúc
+│           ├── orchestrator-template.md   # Template orchestrator nhóm/subagent
+│           ├── team-examples.md           # 5 cấu hình nhóm thực tế
+│           ├── skill-writing-guide.md     # Hướng dẫn viết skill
+│           ├── skill-testing-guide.md     # Phương pháp kiểm thử & đánh giá
+│           └── qa-agent-guide.md          # Hướng dẫn tích hợp QA agent
 └── README.md
 ```
 
-## Usage
+## Cách dùng
 
-Trigger in Claude Code with prompts like:
+Kích hoạt trong Claude Code bằng các prompt như:
 
 ```
-Build a harness for this project
-Design an agent team for this domain
-Set up a harness
+Xây harness cho dự án này
+Thiết kế nhóm agent cho domain này
+Cài đặt harness
 ```
 
-### Execution Modes
+### Chế độ thực thi
 
-| Mode | Description | Recommended For |
-|------|-------------|-----------------|
-| **Agent Teams** (default) | TeamCreate + SendMessage + TaskCreate | 2+ agents requiring collaboration |
-| **Subagents** | Direct Agent tool invocation | One-off tasks, no inter-agent communication needed |
+| Chế độ | Mô tả | Phù hợp khi |
+|--------|-------|-------------|
+| **Nhóm Agent** (mặc định) | TeamCreate + SendMessage + TaskCreate | 2+ agent cần cộng tác |
+| **Subagent** | Gọi trực tiếp Agent tool | Tác vụ đơn lẻ, không cần giao tiếp liên agent |
 
 <p align="center">
   <img src="harness_team.png" alt="Harness Agent Team" width="500">
 </p>
 
-### Architecture Patterns
+### Mẫu kiến trúc
 
-| Pattern | Description |
-|---------|-------------|
-| Pipeline | Sequential dependent tasks |
-| Fan-out/Fan-in | Parallel independent tasks |
-| Expert Pool | Context-dependent selective invocation |
-| Producer-Reviewer | Generation followed by quality review |
-| Supervisor | Central agent with dynamic task distribution |
-| Hierarchical Delegation | Top-down recursive delegation |
+| Mẫu | Mô tả |
+|-----|-------|
+| Pipeline | Tác vụ tuần tự phụ thuộc nhau |
+| Fan-out/Fan-in | Tác vụ song song độc lập |
+| Expert Pool | Gọi có chọn lọc theo ngữ cảnh |
+| Producer-Reviewer | Tạo nội dung rồi kiểm tra chất lượng |
+| Supervisor | Agent trung tâm phân phối tác vụ động |
+| Hierarchical Delegation | Ủy quyền đệ quy từ trên xuống |
 
-## Output
+## Kết quả đầu ra
 
-Files generated by Harness:
+Các file được Harness tạo ra:
 
 ```
-your-project/
+dự-án-của-bạn/
 ├── .claude/
-│   ├── agents/          # Agent definition files
+│   ├── agents/          # File định nghĩa agent
 │   │   ├── analyst.md
 │   │   ├── builder.md
 │   │   └── qa.md
-│   └── skills/          # Skill files
+│   └── skills/          # File skill
 │       ├── analyze/
 │       │   └── SKILL.md
 │       └── build/
@@ -166,137 +174,137 @@ your-project/
 │           └── references/
 ```
 
-## Use Cases — Try These Prompts
+## Trường hợp sử dụng — Thử các prompt này
 
-Copy any prompt below into Claude Code after installing Harness:
+Sao chép bất kỳ prompt nào dưới đây vào Claude Code sau khi cài Harness:
 
-**Deep Research**
+**Nghiên cứu chuyên sâu**
 ```
-Build a harness for deep research. I need an agent team that can investigate
-any topic from multiple angles — web search, academic sources, community
-sentiment — then cross-validate findings and produce a comprehensive report.
-```
-
-**Website Development**
-```
-Build a harness for full-stack website development. The team should handle
-design, frontend (React/Next.js), backend (API), and QA testing in a
-coordinated pipeline from wireframe to deployment.
+Xây harness cho nghiên cứu chuyên sâu. Tôi cần nhóm agent có thể điều tra
+bất kỳ chủ đề nào từ nhiều góc độ — tìm kiếm web, nguồn học thuật,
+phản ứng cộng đồng — sau đó xác nhận chéo kết quả và tạo báo cáo toàn diện.
 ```
 
-**Webtoon / Comic Production**
+**Phát triển website**
 ```
-Build a harness for webtoon episode production. I need agents for story
-writing, character design prompts, panel layout planning, and dialogue
-editing. They should review each other's work for style consistency.
-```
-
-**YouTube Content Planning**
-```
-Build a harness for YouTube content creation. The team should research
-trending topics, write scripts, optimize titles/tags for SEO, and plan
-thumbnail concepts — all coordinated by a supervisor agent.
+Xây harness cho phát triển website full-stack. Nhóm cần xử lý
+thiết kế, frontend (React/Next.js), backend (API) và kiểm thử QA trong
+một pipeline phối hợp từ wireframe đến triển khai.
 ```
 
-**Code Review & Refactoring**
+**Sản xuất Webtoon / Truyện tranh**
 ```
-Build a harness for comprehensive code review. I want parallel agents
-checking architecture, security vulnerabilities, performance bottlenecks,
-and code style — then merging all findings into a single report.
-```
-
-**Technical Documentation**
-```
-Build a harness that generates API documentation from this codebase.
-Agents should analyze endpoints, write descriptions, generate usage
-examples, and review for completeness.
+Xây harness cho sản xuất tập webtoon. Tôi cần agent cho viết truyện,
+prompt thiết kế nhân vật, lập kế hoạch bố cục bảng và chỉnh sửa hội thoại.
+Chúng nên kiểm tra lẫn nhau để đảm bảo nhất quán về phong cách.
 ```
 
-**Data Pipeline Design**
+**Lập kế hoạch nội dung YouTube**
 ```
-Build a harness for designing data pipelines. I need agents for schema
-design, ETL logic, data validation rules, and monitoring setup that
-delegate sub-tasks hierarchically.
-```
-
-**Marketing Campaign**
-```
-Build a harness for marketing campaign creation. The team should research
-the target market, write ad copy, design visual concepts, and set up
-A/B test plans with iterative quality review.
+Xây harness cho tạo nội dung YouTube. Nhóm cần nghiên cứu
+chủ đề trending, viết kịch bản, tối ưu tiêu đề/tag cho SEO và lên kế hoạch
+ý tưởng thumbnail — tất cả được điều phối bởi supervisor agent.
 ```
 
-## Coexistence — Harness and Neighbors
+**Đánh giá & Tái cấu trúc code**
+```
+Xây harness cho đánh giá code toàn diện. Tôi muốn các agent song song
+kiểm tra kiến trúc, lỗ hổng bảo mật, điểm nghẽn hiệu suất
+và style code — sau đó gộp tất cả phát hiện vào một báo cáo duy nhất.
+```
 
-Harness is not alone in the Claude Code / agent-framework ecosystem. The following repos live in adjacent layers; each is described in a parallel "X is …, Harness is …" form so you can pick the one that fits your need or combine several.
+**Tài liệu kỹ thuật**
+```
+Xây harness tạo tài liệu API từ codebase này.
+Agent cần phân tích endpoint, viết mô tả, tạo ví dụ sử dụng
+và đánh giá tính đầy đủ.
+```
 
-| Repo | Their position | Relationship to Harness |
-|------|----------------|-------------------------|
-| [coleam00/Archon](https://github.com/coleam00/Archon) | "harness builder" — deterministic, repeatable runtime configurations | **Same L3, neighbor sub-layer.** Archon is a Runtime-Configuration Factory, Harness is a Team-Architecture Factory. Pick Archon for runtime determinism, Harness for team architecture, or combine them. |
-| [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) | Codex port of the same concept | **Same L3, different runtime.** Use Harness on Claude Code, meta-harness on Codex. |
-| [affaan-m/ECC](https://github.com/affaan-m/everything-claude-code) | "Agent harness performance & workflow layer" (sits on top of existing harnesses) | **Different layer.** ECC is a standardization layer across harnesses; Harness is a factory that generates harnesses. Serial combination possible. |
-| [wshobson/agents](https://github.com/wshobson/agents) | Subagent / skill catalog (182 agents, 149 skills) | **Factory ↔ parts supply.** wshobson is a catalog to shop from; Harness designs the team. Absorb wshobson entries as parts inside a Harness-generated team. |
-| [LangGraph](https://langchain-ai.github.io/langgraph/) | State-graph orchestration, LLM-agnostic | **Different track.** LangGraph is for long-running, state-recoverable orchestration; Harness is for fast Claude-Code-native team design. |
+**Thiết kế Data Pipeline**
+```
+Xây harness cho thiết kế data pipeline. Tôi cần agent cho thiết kế schema,
+logic ETL, quy tắc xác thực dữ liệu và thiết lập giám sát theo
+phân cấp ủy quyền.
+```
 
-## Built with Harness
+**Chiến dịch Marketing**
+```
+Xây harness cho tạo chiến dịch marketing. Nhóm cần nghiên cứu
+thị trường mục tiêu, viết nội dung quảng cáo, thiết kế concept hình ảnh và thiết lập
+kế hoạch A/B test với vòng đánh giá chất lượng lặp lại.
+```
+
+## Cùng tồn tại — Harness và các dự án lân cận
+
+Harness không đơn độc trong hệ sinh thái Claude Code / agent-framework. Các repo sau tồn tại ở các tầng liền kề; mỗi repo được mô tả theo cặp "X là..., Harness là..." để bạn có thể chọn cái phù hợp hoặc kết hợp nhiều cái.
+
+| Repo | Vị trí của họ | Mối quan hệ với Harness |
+|------|---------------|-------------------------|
+| [coleam00/Archon](https://github.com/coleam00/Archon) | "harness builder" — cấu hình runtime xác định, lặp lại được | **Cùng L3, phụ-tầng lân cận.** Archon là Runtime-Configuration Factory, Harness là Team-Architecture Factory. Chọn Archon cho tính xác định runtime, Harness cho kiến trúc nhóm, hoặc kết hợp cả hai. |
+| [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) | Port Codex của cùng khái niệm | **Cùng L3, runtime khác.** Dùng Harness trên Claude Code, meta-harness trên Codex. |
+| [affaan-m/ECC](https://github.com/affaan-m/everything-claude-code) | "Tầng hiệu suất & workflow agent harness" (nằm trên các harness hiện có) | **Tầng khác.** ECC là tầng chuẩn hóa trên các harness; Harness là nhà máy tạo ra harness. Có thể kết hợp nối tiếp. |
+| [wshobson/agents](https://github.com/wshobson/agents) | Danh mục subagent/skill (182 agent, 149 skill) | **Nhà máy ↔ nguồn cung cấp linh kiện.** wshobson là danh mục để tham khảo; Harness thiết kế nhóm. Hấp thụ các entry của wshobson làm linh kiện trong nhóm do Harness tạo ra. |
+| [LangGraph](https://langchain-ai.github.io/langgraph/) | Điều phối state-graph, không phụ thuộc LLM | **Hướng khác.** LangGraph dành cho điều phối dài hạn, phục hồi được trạng thái; Harness dành cho thiết kế nhóm nhanh, native Claude Code. |
+
+## Được xây bằng Harness
 
 ### Harness 100
 
-**[revfactory/harness-100](https://github.com/revfactory/harness-100)** — 100 production-ready agent team harnesses across 10 domains, available in both English and Korean (200 packages total). Each harness ships with 4-5 specialist agents, an orchestrator skill, and domain-specific skills — all generated by this plugin. 1,808 markdown files covering content creation, software development, data/AI, business strategy, education, legal, health, and more.
+**[revfactory/harness-100](https://github.com/revfactory/harness-100)** — 100 harness nhóm agent sẵn sàng cho production trên 10 domain, có cả tiếng Anh lẫn tiếng Hàn (tổng cộng 200 gói). Mỗi harness đi kèm 4-5 agent chuyên biệt, một orchestrator skill và các skill domain — tất cả được tạo bởi plugin này. 1.808 file markdown bao gồm tạo nội dung, phát triển phần mềm, data/AI, chiến lược kinh doanh, giáo dục, pháp lý, sức khỏe và nhiều hơn nữa.
 
-### Research: A/B Testing Harness Effectiveness
+### Nghiên cứu: A/B Testing hiệu quả của Harness
 
-**[revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)** — A controlled experiment across 15 software engineering tasks measuring the impact of structured pre-configuration on LLM code agent output quality.
+**[revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)** — Thí nghiệm có kiểm soát trên 15 tác vụ kỹ thuật phần mềm đo lường tác động của cấu hình trước có cấu trúc đến chất lượng đầu ra của LLM code agent.
 
-| Metric | Without Harness | With Harness | Improvement |
-|--------|:-:|:-:|:-:|
-| Average Quality Score | 49.5 | 79.3 | **+60%** |
-| Win Rate | — | — | **100%** (15/15) |
-| Output Variance | — | — | **-32%** |
+| Chỉ số | Không có Harness | Có Harness | Cải thiện |
+|--------|:----------------:|:----------:|:---------:|
+| Điểm chất lượng trung bình | 49,5 | 79,3 | **+60%** |
+| Tỷ lệ thắng | — | — | **100%** (15/15) |
+| Phương sai đầu ra | — | — | **-32%** |
 
-Key finding: effectiveness scales with task complexity — the harder the task, the greater the improvement (+23.8 Basic, +29.6 Advanced, +36.2 Expert).
+Phát hiện chính: hiệu quả tăng theo độ phức tạp tác vụ — tác vụ càng khó, cải thiện càng lớn (+23,8 cơ bản, +29,6 nâng cao, +36,2 chuyên gia).
 
-**Exact phrasing to use everywhere:** +60% avg quality (49.5 → 79.3), 15/15 win-rate, −32% variance (n=15, author-measured A/B, third-party replications pending).
+**Số liệu chính xác để trích dẫn:** +60% chất lượng trung bình (49,5 → 79,3), tỷ lệ thắng 15/15, phương sai giảm −32% (n=15, A/B do tác giả đo, chờ xác nhận từ bên thứ ba).
 
-> Full paper: *Hwang, M. (2026). Harness: Structured Pre-Configuration for Enhancing LLM Code Agent Output Quality.*
+> Bài báo đầy đủ: *Hwang, M. (2026). Harness: Cấu hình trước có cấu trúc để nâng cao chất lượng đầu ra của LLM Code Agent.*
 
-## Requirements
+## Yêu cầu
 
-- [Agent Teams enabled](https://code.claude.com/docs/en/agent-teams): `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
+- [Agent Teams được bật](https://code.claude.com/docs/en/agent-teams): `CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS=1`
 
-## FAQ
+## Câu hỏi thường gặp
 
 <details>
-<summary><b>Q1. Isn't "+60%" oversold?</b></summary>
+<summary><b>Q1. "+60%" có phải là quảng cáo thổi phồng không?</b></summary>
 
-**A.** The +60% figure comes from an **author-measured A/B (n=15, 15 tasks, measured on the sister repo `claude-code-harness`)**. Every citation in this repo pairs the number with the disclosure "n=15, author-measured, third-party replications pending" in the same sentence. For adoption decisions, we recommend running a 2–4 week internal pilot and measuring your own numbers.
+**A.** Con số +60% đến từ **A/B do tác giả đo (n=15, 15 tác vụ, đo trên repo chị em `claude-code-harness`)**. Mọi trích dẫn trong repo này đều đi kèm thông tin tiết lộ "n=15, do tác giả đo, chờ xác nhận từ bên thứ ba" trong cùng câu. Để quyết định áp dụng, chúng tôi khuyến nghị chạy thử nghiệm nội bộ 2–4 tuần và đo số liệu của riêng bạn.
 
-**Evidence:**
-- Author A/B: [revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)
-- Paper: *Hwang, M. (2026). Harness: Structured Pre-Configuration for Enhancing LLM Code Agent Output Quality*
+**Bằng chứng:**
+- A/B của tác giả: [revfactory/claude-code-harness](https://github.com/revfactory/claude-code-harness)
+- Bài báo: *Hwang, M. (2026). Harness: Cấu hình trước có cấu trúc để nâng cao chất lượng đầu ra của LLM Code Agent*
 </details>
 
 <details>
-<summary><b>Q2. Why "harness factory" and not "harness builder"? Isn't this competing with Archon?</b></summary>
+<summary><b>Q2. Tại sao dùng "harness factory" thay vì "harness builder"? Điều này có cạnh tranh với Archon không?</b></summary>
 
-**A.** Archon generates deterministic runtime configurations — it's a **Runtime-Configuration Factory**. Harness generates agent team architectures (team structure, message protocols, review gates) — it's a **Team-Architecture Factory**. They are **neighbor sub-layers of the same L3 Meta-Factory** and serve different needs. Pick Archon for runtime determinism, Harness for team-architecture patterns, or combine them (design architecture with Harness → deploy runtime with Archon).
+**A.** Archon tạo cấu hình runtime xác định — đó là **Runtime-Configuration Factory**. Harness tạo kiến trúc nhóm agent (cấu trúc nhóm, giao thức tin nhắn, cổng review) — đó là **Team-Architecture Factory**. Chúng là **phụ-tầng lân cận của cùng L3 Meta-Factory** và phục vụ nhu cầu khác nhau. Chọn Archon cho tính xác định runtime, Harness cho mẫu kiến trúc nhóm, hoặc kết hợp cả hai (thiết kế kiến trúc với Harness → triển khai runtime với Archon).
 
-**Evidence:**
-- Archon self-definition: [clawfit docs/reference-levels.md](https://github.com/hongsw/clawfit/blob/main/docs/reference-levels.md)
-- Sub-layer declaration: see the **Category — Where Harness Sits** section above
-- Archon repo: [github.com/coleam00/Archon](https://github.com/coleam00/Archon)
+**Bằng chứng:**
+- Tự định nghĩa của Archon: [clawfit docs/reference-levels.md](https://github.com/hongsw/clawfit/blob/main/docs/reference-levels.md)
+- Khai báo phụ-tầng: xem phần **Danh mục — Vị trí của Harness** ở trên
+- Repo Archon: [github.com/coleam00/Archon](https://github.com/coleam00/Archon)
 </details>
 
 <details>
-<summary><b>Q3. Isn't "Claude Code only" too narrow? What about Gemini/Codex?</b></summary>
+<summary><b>Q3. "Chỉ Claude Code" có quá hạn hẹp không? Còn Gemini/Codex thì sao?</b></summary>
 
-**A.** Currently the official runtime is Claude Code only. A Codex port of the same concept — [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) — is already public, so Codex teams can start there. Harness chose "Claude-Code-native, deep" over "multi-runtime, shallow"; cross-runtime collaboration with sibling repos (meta-harness, harness-init, OpenRig) is on the roadmap.
+**A.** Hiện tại runtime chính thức chỉ là Claude Code. Port Codex của cùng khái niệm — [SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness) — đã có công khai, nên các nhóm dùng Codex có thể bắt đầu từ đó. Harness chọn "native Claude Code, sâu" thay vì "đa runtime, nông"; cộng tác đa runtime với các repo anh chị em (meta-harness, harness-init, OpenRig) đang trong lộ trình.
 
-**Evidence:**
-- Codex port: [github.com/SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness)
-- Cross-runtime scaffolder: [github.com/Gizele1/harness-init](https://github.com/Gizele1/harness-init)
+**Bằng chứng:**
+- Port Codex: [github.com/SaehwanPark/meta-harness](https://github.com/SaehwanPark/meta-harness)
+- Scaffolder đa runtime: [github.com/Gizele1/harness-init](https://github.com/Gizele1/harness-init)
 </details>
 
-## License
+## Giấy phép
 
 Apache 2.0

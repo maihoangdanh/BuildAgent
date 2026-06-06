@@ -1,104 +1,104 @@
-# Changelog
+# Nhật ký thay đổi
 
-이 프로젝트는 [Semantic Versioning](https://semver.org/)을 따릅니다.
+Dự án này tuân theo [Semantic Versioning](https://semver.org/).
 
-## [Unreleased]
+## [Chưa phát hành]
 
-### Added
-- 신규 에이전트/스킬 생성 전 중복 검토 단계 (Phase 3-0, Phase 4-0)
-- `references/agent-design-patterns.md` "에이전트 재사용 설계" 섹션
-- `references/skill-writing-guide.md` §9 "스킬 재사용 설계"
+### Thêm mới
+- Bước kiểm tra trùng lặp trước khi tạo agent/skill mới (Phase 3-0, Phase 4-0)
+- Mục "Thiết kế tái sử dụng agent" trong `references/agent-design-patterns.md`
+- §9 "Thiết kế tái sử dụng skill" trong `references/skill-writing-guide.md`
 
-### Changed
-- Phase 선택 매트릭스에 3-0/4-0 명시
-- Phase 2-3에 재사용 검토 단계 포인터 추가
-- 산출물 체크리스트에 재사용 검토 항목 2개 추가
+### Thay đổi
+- Nêu rõ 3-0/4-0 trong ma trận chọn Phase
+- Thêm pointer bước kiểm tra tái sử dụng vào Phase 2-3
+- Thêm 2 mục kiểm tra tái sử dụng vào checklist đầu ra
 
 ---
 
 ## [1.2.1] - 2026-04-18
 
-### Fixed
+### Sửa lỗi
 
-- **버전 정합성 동기화** — README.md / README_KO.md / README_JA.md 뱃지가 `v1.0.1`, `.claude-plugin/marketplace.json`이 `1.1.0`, `.claude-plugin/plugin.json`이 `1.2.0`으로 3중 불일치 → 모두 **v1.2.0**으로 통일 (plugin.json 기준)
-- **태그드 릴리스 0건 상태 해소 준비** — v1.0.0 / v1.0.1 / v1.1.0 / v1.2.0 소급 태그 계획 작성 (`_workspace/release/audit-2026-04-18.md` §4 참조)
+- **Đồng bộ phiên bản** — Badge trong README.md / README_KO.md / README_JA.md hiển thị `v1.0.1`, `.claude-plugin/marketplace.json` là `1.1.0`, `.claude-plugin/plugin.json` là `1.2.0` (3 nơi không khớp) → thống nhất tất cả thành **v1.2.0** (theo plugin.json)
+- **Chuẩn bị giải quyết tình trạng 0 tagged release** — Lập kế hoạch gắn tag hồi tố cho v1.0.0 / v1.0.1 / v1.1.0 / v1.2.0 (xem `_workspace/release/audit-2026-04-18.md` §4)
 
-### Added
+### Thêm mới
 
-- **포지셔닝 선언: "harness factory"** — README 상단에 카테고리 자기 규정 문구를 도입. "에이전트 + 스킬을 도메인별로 찍어내는 하네스 팩토리"로 카테고리 선점 (단일 에이전트/프롬프트 프레임워크 대비 차별화)
-- **CONTRIBUTING.md** — 기여 가이드 및 SLA 명시 (PR 1차 응답 72h, Issue triage 48h). 커뮤니티 온보딩 장벽 해소
-- **docs/ 디렉토리** — 장기 문서(아키텍처, 마이그레이션, 패턴 카탈로그) 이전 공간 신설. README 비대화 방지 및 검색성 향상
-- **Issue #3 응답 정책** — 커뮤니티 이슈에 대한 공식 응답 템플릿 및 트리아지 프로세스 추가
+- **Tuyên bố định vị: "harness factory"** — Đưa văn mô tả tự định nghĩa danh mục vào đầu README. Chiếm vị trí danh mục "nhà máy harness tạo agent + skill theo domain" (phân biệt với framework agent/prompt đơn lẻ)
+- **CONTRIBUTING.md** — Hướng dẫn đóng góp và SLA rõ ràng (phản hồi PR lần đầu 72h, triage Issue 48h). Giảm rào cản onboarding cộng đồng
+- **Thư mục docs/** — Tạo không gian mới cho tài liệu dài hạn (kiến trúc, migration, danh mục mẫu). Ngăn README phình to và cải thiện khả năng tìm kiếm
+- **Chính sách phản hồi Issue #3** — Thêm template phản hồi chính thức và quy trình triage cho các issue cộng đồng
 
-### Changed
+### Thay đổi
 
 - `.claude-plugin/marketplace.json` version: `1.1.0` → `1.2.0`
-- README 뱃지 (EN/KO/JA 3종): `Version-1.0.1` → `Version-1.2.0`
-- **`.claude-plugin/plugin.json` description 재작성** — `"Agent Team & Skill Architect — Meta-skill that designs..."` → `"The team-architecture factory for Claude Code — a meta-skill that turns a domain description into an agent team and the skills they use, with six pre-defined team-architecture patterns..."` (EN+KO 병기, L3 Meta-Factory 포지셔닝 반영)
-- **`.claude-plugin/plugin.json` keywords 확장** — 5개 → 17개 (`harness-factory`, `team-architecture-factory`, `claude-code-plugin`, `agent-scaffolding`, `multi-agent`, 6패턴 키워드 6종 추가)
+- Badge README (3 bản EN/KO/JA): `Version-1.0.1` → `Version-1.2.0`
+- **Viết lại description trong `.claude-plugin/plugin.json`** — `"Agent Team & Skill Architect — Meta-skill that designs..."` → `"Nhà máy kiến trúc nhóm cho Claude Code — meta-skill biến mô tả domain thành nhóm agent và bộ skill, với sáu mẫu kiến trúc nhóm định sẵn..."` (song ngữ Anh+Hàn, phản ánh định vị L3 Meta-Factory)
+- **Mở rộng keywords trong `.claude-plugin/plugin.json`** — 5 → 17 từ khóa (thêm `harness-factory`, `team-architecture-factory`, `claude-code-plugin`, `agent-scaffolding`, `multi-agent`, 6 từ khóa mẫu)
 
 ## [1.2.0] - 2026-04-08
 
-### Changed
+### Thay đổi
 
-- **CLAUDE.md 등록 정책 간소화 (중복 제거)** — Phase 5-4 "컨텍스트 등록"을 "포인터 등록"으로 전환. 에이전트 목록·스킬 목록·디렉토리 구조·실행 규칙 상세를 CLAUDE.md에서 제거하고 **트리거 규칙 + 변경 이력**만 남김. 에이전트/스킬 목록은 `.claude/agents/`, `.claude/skills/` 및 오케스트레이터 스킬에서 단일 출처로 관리
-- **Phase 3/4 임시 동기화 단계 삭제** — CLAUDE.md 동기화 부담을 줄이기 위해 Phase 3/4의 임시 동기화 지시 제거. 최종 포인터 등록은 Phase 5-4에서 1회만 수행
-- **핵심 원칙 3번 재정의** — "CLAUDE.md에 하네스 컨텍스트를 등록한다" → "CLAUDE.md에 하네스 포인터를 등록한다"
-- **CLAUDE.md vs 오케스트레이터 역할 분담표 삭제** — 포인터 정책으로 단순화되어 표 자체가 불필요해짐
+- **Đơn giản hóa chính sách đăng ký CLAUDE.md (xóa trùng lặp)** — Chuyển "đăng ký context" Phase 5-4 thành "đăng ký pointer". Xóa danh sách agent, danh sách skill, cấu trúc thư mục, chi tiết quy tắc thực thi khỏi CLAUDE.md, chỉ giữ **quy tắc trigger + lịch sử thay đổi**. Danh sách agent/skill được quản lý nguồn đơn trong `.claude/agents/`, `.claude/skills/` và orchestrator skill
+- **Xóa bước đồng bộ tạm thời Phase 3/4** — Loại bỏ chỉ thị đồng bộ tạm thời trong Phase 3/4 để giảm gánh nặng đồng bộ CLAUDE.md. Đăng ký pointer cuối cùng chỉ thực hiện 1 lần trong Phase 5-4
+- **Tái định nghĩa nguyên tắc cốt lõi số 3** — "Đăng ký context harness vào CLAUDE.md" → "Đăng ký pointer harness vào CLAUDE.md"
+- **Xóa bảng phân chia vai trò CLAUDE.md vs orchestrator** — Đã đơn giản hóa thành chính sách pointer, bảng không còn cần thiết
 
-### Added
+### Thêm mới
 
-- **Phase 2-1: 하이브리드 실행 모드** — 에이전트 팀 / 서브 에이전트에 더해 Phase별로 모드를 섞는 하이브리드 패턴 추가. 자주 쓰이는 조합(병렬 수집→합의 통합, 팀 생성→검증, Phase 간 팀 재구성) 명시
-- **Phase 2-1 실행 모드 비교표** — 팀/서브/하이브리드 3종 특성 및 의사결정 순서 3단계 제공
-- **Phase 5-0 하이브리드 오케스트레이터 패턴** — 하이브리드 구성 시 각 Phase 상단에 실행 모드를 명시하는 규칙
-- **Phase 5-1 반환값 기반 데이터 전달** — 서브 에이전트 모드 전용 데이터 전달 전략 추가 (기존 메시지/태스크/파일 + 반환값)
-- **Phase 5-1 권장 조합 (서브/하이브리드)** — 팀 모드 외 서브 모드와 하이브리드에서의 데이터 전달 권장 조합 명시
+- **Phase 2-1: Chế độ thực thi hybrid** — Ngoài nhóm agent / subagent, thêm mẫu hybrid kết hợp chế độ theo từng Phase. Nêu rõ các tổ hợp thường dùng (thu thập song song→tích hợp đồng thuận, tạo nhóm→xác thực, tái cấu trúc nhóm giữa các Phase)
+- **Bảng so sánh chế độ thực thi Phase 2-1** — Cung cấp 3 đặc điểm nhóm/subagent/hybrid và 3 bước ra quyết định
+- **Phase 5-0 mẫu orchestrator hybrid** — Quy tắc ghi rõ chế độ thực thi ở đầu mỗi Phase khi dùng cấu hình hybrid
+- **Truyền dữ liệu dựa trên giá trị trả về Phase 5-1** — Thêm chiến lược truyền dữ liệu dành riêng cho chế độ subagent (ngoài message/task/file + return value)
+- **Tổ hợp khuyến nghị Phase 5-1 (subagent/hybrid)** — Nêu rõ tổ hợp truyền dữ liệu khuyến nghị trong chế độ subagent và hybrid ngoài chế độ nhóm
 
 ## [1.1.0] - 2026-04-05
 
-### Added
+### Thêm mới
 
-- **Phase 0: 현황 감사** — 트리거 시 기존 하네스 상태를 먼저 확인하고 신규 구축/기존 확장/운영·유지보수 3분기로 라우팅
-- **기존 확장 Phase 선택 매트릭스** — 에이전트 추가/스킬 추가/아키텍처 변경별 필요 Phase를 명시한 결정표
-- **Phase 3/4 CLAUDE.md 임시 동기화** — 에이전트·스킬 생성 직후 CLAUDE.md에 즉시 반영 (세션 중단 내성)
-- **Phase 5-4: CLAUDE.md 하네스 컨텍스트 등록** — 에이전트 팀 구조·스킬 목록·실행 규칙·디렉토리 구조·변경 이력을 기록. CLAUDE.md vs 오케스트레이터 역할 분담표 포함
-- **Phase 5-5: 후속 작업 지원** — 오케스트레이터 description에 후속 키워드 필수 포함, Phase 0 컨텍스트 확인 단계로 초기/부분재실행/새실행 자동 판별
-- **Phase 5 오케스트레이터 수정 경로** — 기존 확장 시 오케스트레이터를 새로 만들지 않고 수정하는 가이드
-- **Phase 7: 하네스 진화 메커니즘** — 실행 후 피드백 수집 → 피드백 유형별 수정 대상 매핑 → 변경 이력 기록 → 자동 진화 트리거
-- **Phase 7-5: 운영/유지보수 워크플로우** — 현황 감사→점진적 수정→CLAUDE.md 동기화→변경 검증 4단계
-- **description에 운영/유지보수 트리거** — '하네스 점검', '하네스 감사', '하네스 현황', '에이전트/스킬 동기화' 키워드
-- **산출물 체크리스트 강화** — CLAUDE.md 동기화 완료, 변경 이력 기록, Phase 0 컨텍스트 확인 항목 추가
-- 오케스트레이터 템플릿에 Phase 0 (컨텍스트 확인) 추가 — 에이전트 팀/서브 에이전트 모드 모두 적용
-- 오케스트레이터 description 템플릿에 후속 작업 키워드 패턴 포함
+- **Phase 0: Kiểm tra hiện trạng** — Khi trigger, kiểm tra trạng thái harness hiện có trước tiên và phân nhánh sang 3 hướng: xây mới / mở rộng hiện có / vận hành & bảo trì
+- **Ma trận chọn Phase khi mở rộng hiện có** — Bảng quyết định ghi rõ Phase cần thiết cho từng loại: thêm agent/thêm skill/thay đổi kiến trúc
+- **Đồng bộ CLAUDE.md tạm thời Phase 3/4** — Cập nhật CLAUDE.md ngay sau khi tạo agent/skill (đề kháng ngắt phiên)
+- **Phase 5-4: Đăng ký context harness vào CLAUDE.md** — Ghi lại cấu trúc nhóm agent, danh sách skill, quy tắc thực thi, cấu trúc thư mục, lịch sử thay đổi. Bao gồm bảng phân chia vai trò CLAUDE.md vs orchestrator
+- **Phase 5-5: Hỗ trợ tác vụ tiếp theo** — Orchestrator description bắt buộc bao gồm từ khóa tiếp theo, bước kiểm tra context Phase 0 tự động phân biệt lần chạy đầu/lần chạy lại một phần/lần chạy mới
+- **Đường dẫn sửa đổi orchestrator Phase 5** — Hướng dẫn sửa đổi orchestrator thay vì tạo mới khi mở rộng hiện có
+- **Phase 7: Cơ chế tiến hóa harness** — Thu thập phản hồi sau mỗi lần chạy → ánh xạ loại phản hồi đến mục tiêu sửa đổi → ghi lịch sử thay đổi → trigger tiến hóa tự động
+- **Phase 7-5: Quy trình vận hành/bảo trì** — 4 bước: kiểm tra hiện trạng→sửa đổi dần dần→đồng bộ CLAUDE.md→xác thực thay đổi
+- **Trigger vận hành/bảo trì trong description** — Các từ khóa: 'kiểm tra harness', 'kiểm toán harness', 'hiện trạng harness', 'đồng bộ agent/skill'
+- **Tăng cường checklist đầu ra** — Thêm các mục: đồng bộ CLAUDE.md hoàn tất, ghi lịch sử thay đổi, kiểm tra context Phase 0
+- Thêm Phase 0 (kiểm tra context) vào template orchestrator — áp dụng cho cả chế độ nhóm agent/subagent
+- Thêm mẫu từ khóa tác vụ tiếp theo vào template description orchestrator
 
-### Changed
+### Thay đổi
 
-- 핵심 원칙 2개 → 4개로 확장 (CLAUDE.md 등록, 진화 시스템 추가)
-- **"진화 로그" → "변경 이력" 통일** — 이름과 스키마(4컬럼: 날짜/변경내용/대상/사유)를 전 섹션에서 일원화
-- **Phase 1 Step 3** — Phase 0 감사 결과를 기반으로 충돌 분석하도록 변경 (중복 제거)
-- **5-4 CLAUDE.md 템플릿 코드 블록** — 중첩 렌더링 깨짐 수정 (3백틱→4백틱)
-- **역할 분담표 확장** — 스킬 목록, 디렉토리 구조, 변경 이력 행 추가
-- **오케스트레이터 템플릿** — Phase 0 컨텍스트 확인 단계, 후속 작업 키워드 가이드 추가
+- Mở rộng nguyên tắc cốt lõi từ 2 → 4 (thêm đăng ký CLAUDE.md, hệ thống tiến hóa)
+- **Thống nhất "nhật ký tiến hóa" → "lịch sử thay đổi"** — Thống nhất tên và schema (4 cột: ngày/nội dung thay đổi/mục tiêu/lý do) trên toàn bộ các phần
+- **Phase 1 Bước 3** — Thay đổi để phân tích xung đột dựa trên kết quả kiểm tra Phase 0 (loại bỏ trùng lặp)
+- **Khối code template CLAUDE.md 5-4** — Sửa lỗi render lồng nhau (3 backtick→4 backtick)
+- **Mở rộng bảng phân chia vai trò** — Thêm hàng danh sách skill, cấu trúc thư mục, lịch sử thay đổi
+- **Template orchestrator** — Thêm bước kiểm tra context Phase 0, hướng dẫn từ khóa tác vụ tiếp theo
 
 ## [1.0.1] - 2026-03-28
 
-### Changed
+### Thay đổi
 
-- SKILL.md ↔ references 간 중복 내용 제거 (330줄 → 285줄)
-  - Phase 2-1: 실행 모드 비교표/불릿 → 핵심 원칙 + agent-design-patterns.md 포인터
-  - Phase 2-3: 에이전트 분리 기준 불릿 → 4축 요약 + agent-design-patterns.md 포인터
-  - Phase 3: 에이전트 정의 템플릿 코드블록 → 필수 섹션 나열 + references 포인터
-  - Phase 5-2: 에러 핸들링 5행 테이블 → 핵심 원칙 + orchestrator-template.md 포인터
+- Loại bỏ nội dung trùng lặp giữa SKILL.md ↔ references (330 dòng → 285 dòng)
+  - Phase 2-1: Bảng/bullet so sánh chế độ thực thi → nguyên tắc cốt lõi + pointer agent-design-patterns.md
+  - Phase 2-3: Bullet tiêu chí phân tách agent → tóm tắt 4 trục + pointer agent-design-patterns.md
+  - Phase 3: Khối code template định nghĩa agent → liệt kê phần bắt buộc + pointer references
+  - Phase 5-2: Bảng 5 hàng xử lý lỗi → nguyên tắc cốt lõi + pointer orchestrator-template.md
 
 ## [1.0.0] - 2026-03-27
 
-### Added
+### Thêm mới
 
-- 6 Phase 워크플로우 기반 하네스 구성 메타 스킬
-- 6가지 에이전트 아키텍처 패턴 (파이프라인, 팬아웃/팬인, 전문가 풀, 생성-검증, 감독자, 계층적 위임)
-- 에이전트 팀 / 서브 에이전트 실행 모드 지원
-- Progressive Disclosure 기반 스킬 생성 가이드
-- 오케스트레이터 템플릿 (에이전트 팀 모드 + 서브 에이전트 모드)
-- QA 에이전트 통합 가이드 (실제 프로젝트 7개 버그 사례 기반)
-- 스킬 테스트/평가 방법론 (With-skill vs Without-skill 비교)
-- 실전 팀 구성 예시 5종 (리서치, 소설, 웹툰, 코드리뷰, 마이그레이션)
+- Meta-skill cấu hình harness dựa trên quy trình 6 Phase
+- 6 mẫu kiến trúc agent (Pipeline, Fan-out/Fan-in, Expert Pool, Producer-Reviewer, Supervisor, Hierarchical Delegation)
+- Hỗ trợ chế độ thực thi nhóm agent / subagent
+- Hướng dẫn tạo skill dựa trên Progressive Disclosure
+- Template orchestrator (chế độ nhóm agent + subagent)
+- Hướng dẫn tích hợp QA agent (dựa trên 7 trường hợp bug thực tế)
+- Phương pháp kiểm thử/đánh giá skill (so sánh With-skill vs Without-skill)
+- 5 ví dụ cấu hình nhóm thực tế (nghiên cứu, tiểu thuyết, webtoon, đánh giá code, migration)

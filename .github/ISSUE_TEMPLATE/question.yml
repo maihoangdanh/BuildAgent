@@ -1,35 +1,35 @@
-name: Question
-description: Ask a how-to or clarification question about Harness
+name: Câu hỏi
+description: Đặt câu hỏi về cách dùng hoặc yêu cầu làm rõ về Harness
 title: "[question] "
 labels: ["question", "needs-triage"]
 body:
   - type: markdown
     attributes:
       value: |
-        Questions are welcome. If your question is open-ended or invites discussion, [GitHub Discussions](https://github.com/revfactory/harness/discussions) is usually a better venue.
+        Câu hỏi luôn được chào đón. Nếu câu hỏi của bạn mang tính mở hoặc mời thảo luận, [GitHub Discussions](https://github.com/revfactory/harness/discussions) thường là nơi phù hợp hơn.
 
-        We try to triage questions within 48h.
+        Chúng tôi cố gắng triage câu hỏi trong 48h.
 
   - type: textarea
     id: question
     attributes:
-      label: Your question
-      description: What would you like to know?
+      label: Câu hỏi của bạn
+      description: Bạn muốn biết điều gì?
     validations:
       required: true
 
   - type: textarea
     id: tried
     attributes:
-      label: What have you tried?
-      description: Commands run, docs read, related issues you've already found.
+      label: Bạn đã thử gì?
+      description: Các lệnh đã chạy, tài liệu đã đọc, các issue liên quan bạn đã tìm thấy.
     validations:
       required: false
 
   - type: textarea
     id: docs
     attributes:
-      label: Related docs / links (optional)
-      description: Paste links to sections of the README, docs, or issues you've already read.
+      label: Tài liệu / liên kết liên quan (tùy chọn)
+      description: Dán liên kết đến các phần của README, docs hoặc issue bạn đã đọc.
     validations:
       required: false

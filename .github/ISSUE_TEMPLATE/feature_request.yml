@@ -1,62 +1,62 @@
-name: Feature request
-description: Propose a new capability or enhancement for Harness
+name: Yêu cầu tính năng
+description: Đề xuất khả năng mới hoặc cải tiến cho Harness
 title: "[feat] "
 labels: ["enhancement", "needs-discussion"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for the idea. Features take a bit of back-and-forth — please help us with the "why" before the "what".
+        Cảm ơn ý tưởng của bạn. Các tính năng cần một chút trao đổi qua lại — vui lòng giúp chúng tôi với phần "tại sao" trước "cái gì".
 
-        For anything RFC-sized (new pattern family, runtime support, breaking API), consider starting in [GitHub Discussions](https://github.com/revfactory/harness/discussions) first.
+        Với những điều cỡ RFC (họ mẫu mới, hỗ trợ runtime, API phá vỡ), hãy cân nhắc bắt đầu trong [GitHub Discussions](https://github.com/revfactory/harness/discussions) trước.
 
   - type: textarea
     id: problem
     attributes:
-      label: What problem does this solve?
-      description: Describe the user or engineering pain point. Concrete scenario preferred.
+      label: Vấn đề này giải quyết điều gì?
+      description: Mô tả điểm đau của người dùng hoặc kỹ thuật. Ưu tiên kịch bản cụ thể.
       placeholder: |
-        When I scaffold a team for ___, I end up manually ___ because ___.
+        Khi tôi tạo nhóm cho ___, tôi phải thủ công ___ vì ___.
     validations:
       required: true
 
   - type: textarea
     id: proposal
     attributes:
-      label: Proposed solution
-      description: Your idea for fixing it. Sketch API / CLI / workflow if relevant.
+      label: Giải pháp đề xuất
+      description: Ý tưởng của bạn để giải quyết vấn đề. Phác thảo API / CLI / quy trình nếu liên quan.
     validations:
       required: true
 
   - type: textarea
     id: alternatives
     attributes:
-      label: Alternatives considered
-      description: What other approaches did you think about, and why did you not pick them?
+      label: Các phương án đã cân nhắc
+      description: Bạn đã nghĩ đến những cách tiếp cận nào khác, và tại sao bạn không chọn chúng?
     validations:
       required: false
 
   - type: dropdown
     id: related-pattern
     attributes:
-      label: Related team-architecture pattern (if any)
-      description: Which of the 6 built-in patterns is this most relevant to?
+      label: Mẫu kiến trúc nhóm liên quan (nếu có)
+      description: Mẫu nào trong 6 mẫu tích hợp sẵn này liên quan nhất?
       options:
-        - "Not pattern-specific"
+        - "Không liên quan đến mẫu cụ thể"
         - "Pipeline"
         - "Fan-out / Fan-in"
         - "Expert Pool"
         - "Producer–Reviewer"
         - "Supervisor"
         - "Hierarchical Delegation"
-        - "A new pattern (please describe below)"
+        - "Một mẫu mới (vui lòng mô tả bên dưới)"
     validations:
       required: true
 
   - type: textarea
     id: additional
     attributes:
-      label: Additional context (optional)
-      description: Links, prior art, screenshots, anything else.
+      label: Ngữ cảnh bổ sung (tùy chọn)
+      description: Links, nghiên cứu trước, ảnh chụp màn hình, bất cứ điều gì khác.
     validations:
       required: false

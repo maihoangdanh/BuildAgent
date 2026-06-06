@@ -1,58 +1,58 @@
 <!--
-Thanks for sending a PR! Please fill in the sections below so reviewers can move fast.
+Cảm ơn bạn đã gửi PR! Vui lòng điền vào các phần bên dưới để reviewer có thể xử lý nhanh.
 
-See CONTRIBUTING.md for branch naming, commit conventions, and SLAs.
+Xem CONTRIBUTING.md để biết quy tắc đặt tên nhánh, quy ước commit và SLA.
 -->
 
-## Summary
+## Tóm tắt
 
-<!-- 2–4 sentences: what does this PR change, and why now? -->
+<!-- 2–4 câu: PR này thay đổi gì và tại sao lúc này? -->
 
-## Motivation
+## Động lực
 
-<!-- Link the issue, RFC, or research note that motivated this. If none, a 1-line rationale is fine. -->
+<!-- Link issue, RFC hoặc ghi chú nghiên cứu đã thúc đẩy PR này. Nếu không có, một dòng lý do ngắn là đủ. -->
 
-- Closes #
-- Related to #
+- Đóng #
+- Liên quan đến #
 
-## Scope of change
+## Phạm vi thay đổi
 
-<!-- Tick whichever boxes apply. Leave the rest unchecked. -->
+<!-- Tick các ô áp dụng. Để trống phần còn lại. -->
 
-- [ ] Skill / meta-skill logic
-- [ ] Agent template(s)
+- [ ] Logic Skill / meta-skill
+- [ ] Template Agent
 - [ ] Plugin manifest (`.claude-plugin/plugin.json`, `marketplace.json`)
-- [ ] Documentation (`README.md`, `README_KO.md`, `README_JA.md`, `docs/`)
+- [ ] Tài liệu (`README.md`, `README_KO.md`, `README_JA.md`, `docs/`)
 - [ ] `CHANGELOG.md`
 - [ ] CI / GitHub Actions
-- [ ] Tests
-- [ ] Other (describe):
+- [ ] Kiểm thử
+- [ ] Khác (mô tả):
 
-## Tests
+## Kiểm thử
 
-<!-- What did you run locally? Paste output or describe. -->
+<!-- Bạn đã chạy gì cục bộ? Dán đầu ra hoặc mô tả. -->
 
-- [ ] `npx markdownlint '**/*.md'` passes
-- [ ] Manual repro of the change works as expected
-- [ ] New unit / integration tests added (if applicable)
-- [ ] N/A — explain below
+- [ ] `npx markdownlint '**/*.md'` pass
+- [ ] Tái hiện thủ công thay đổi hoạt động đúng như mong đợi
+- [ ] Thêm unit test / integration test mới (nếu áp dụng)
+- [ ] N/A — giải thích bên dưới
 
-## CHANGELOG update
+## Cập nhật CHANGELOG
 
-<!-- Every user-visible change must land in CHANGELOG.md under the Unreleased section. -->
+<!-- Mọi thay đổi thấy được của người dùng phải vào CHANGELOG.md trong phần Unreleased. -->
 
-- [ ] Yes — added to `CHANGELOG.md`
-- [ ] No — this change is not user-visible (docs-only / internal refactor)
+- [ ] Có — đã thêm vào `CHANGELOG.md`
+- [ ] Không — thay đổi này không thấy được với người dùng (chỉ docs / internal refactor)
 
-## SemVer impact
+## Tác động SemVer
 
-<!-- See CONTRIBUTING.md § Commit Message Convention. Choose one. -->
+<!-- Xem CONTRIBUTING.md § Quy ước Commit Message. Chọn một. -->
 
-- [ ] **Patch** — bug fix, no API change (`fix:`)
-- [ ] **Minor** — additive, backward-compatible (`feat:`)
-- [ ] **Major** — breaking change (`feat!:` or `BREAKING CHANGE:` in commit footer)
-- [ ] **None** — docs / chore / refactor / test
+- [ ] **Patch** — sửa bug, không thay đổi API (`fix:`)
+- [ ] **Minor** — bổ sung, tương thích ngược (`feat:`)
+- [ ] **Major** — breaking change (`feat!:` hoặc `BREAKING CHANGE:` trong footer commit)
+- [ ] **Không có** — docs / chore / refactor / test
 
-## Additional notes
+## Ghi chú thêm
 
-<!-- Screenshots, migration notes, follow-ups, things you want reviewers to focus on. -->
+<!-- Ảnh chụp màn hình, ghi chú migration, công việc tiếp theo, những điều bạn muốn reviewer tập trung vào. -->
